@@ -6,73 +6,116 @@
 <title>الاختبار النصفي – شرح أصول متن الشاطبية</title>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root{--g:#0f5132;--g2:#198754;--gold:#c9a227;--bg:#f6f3ea;--red:#b02a37}
+  :root{--g:#0f5132;--g2:#198754;--gold:#c9a227;--bg:#f4f1e8;--red:#b02a37;--gray:#6c757d}
   *{box-sizing:border-box}
-  body{margin:0;font-family:'Cairo',sans-serif;background:var(--bg);color:#222}
-  header{background:linear-gradient(135deg,var(--g),#0b3d26);color:#fff;text-align:center;padding:28px 16px;border-bottom:5px solid var(--gold)}
-  header h1{font-family:'Amiri',serif;margin:0;font-size:2rem}
-  header p{margin:6px 0 0;opacity:.85}
-  .wrap{max-width:820px;margin:24px auto;padding:0 14px}
+  body{margin:0;font-family:'Cairo',sans-serif;background:var(--bg);color:#222;min-height:100vh}
+  header{background:linear-gradient(135deg,var(--g),#0b3d26);color:#fff;text-align:center;padding:24px 16px;border-bottom:5px solid var(--gold)}
+  header h1{font-family:'Amiri',serif;margin:0;font-size:1.9rem}
+  header p{margin:4px 0 0;opacity:.85}
+  .wrap{max-width:820px;margin:22px auto;padding:0 14px}
   .card{background:#fff;border-radius:16px;box-shadow:0 4px 18px #0001;padding:24px;margin-bottom:16px}
-  input[type=text]{width:100%;padding:14px;font:inherit;font-size:1.1rem;border:2px solid #ddd;border-radius:10px}
-  input[type=text]:focus{outline:none;border-color:var(--g2)}
-  .btn{background:var(--g2);color:#fff;border:0;border-radius:10px;padding:14px 28px;font:inherit;font-weight:800;font-size:1.1rem;cursor:pointer;width:100%;margin-top:14px}
-  .btn:disabled{opacity:.5;cursor:not-allowed}
-  ul.rules{line-height:2}
-  .bar{position:sticky;top:0;z-index:5;background:#fff;box-shadow:0 2px 10px #0002;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px}
-  .timer{font-weight:800;font-size:1.3rem;color:var(--g);direction:ltr}
-  .timer.warn{color:var(--red);animation:p 1s infinite}@keyframes p{50%{opacity:.4}}
-  .prog{flex:1;height:8px;background:#eee;border-radius:5px;overflow:hidden}.prog i{display:block;height:100%;background:var(--gold);width:0;transition:.3s}
-  .q{display:flex;gap:14px;align-items:flex-start}
-  .num{background:var(--g);color:#fff;min-width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-weight:800}
-  .txt{font-family:'Amiri',serif;font-size:1.35rem;line-height:1.8;flex:1}
-  .opts{display:flex;gap:10px;margin-top:12px}
-  .opts label{flex:1;border:2px solid #ddd;border-radius:10px;padding:10px;text-align:center;cursor:pointer;font-weight:700;transition:.2s}
-  .opts input{display:none}
-  .opts input:checked+span.t{color:#fff}
-  .opts label:has(input[value=true]:checked){background:var(--g2);border-color:var(--g2);color:#fff}
-  .opts label:has(input[value=false]:checked){background:var(--red);border-color:var(--red);color:#fff}
-  .hidden{display:none}
-  .score{text-align:center}.score .big{font-size:4rem;font-weight:800;color:var(--g)}
-  table{width:100%;border-collapse:collapse}td,th{padding:8px;border-bottom:1px solid #eee;text-align:center}
-  .ok{color:var(--g2);font-weight:800}.no{color:var(--red);font-weight:800}
-  .msg{text-align:center;padding:30px;font-size:1.2rem}
+  .field{margin-bottom:14px}.field label{display:block;font-weight:700;margin-bottom:6px}
+  input.in{width:100%;padding:13px;font:inherit;font-size:1.05rem;border:2px solid #ddd;border-radius:10px}
+  input.in:focus{outline:none;border-color:var(--g2)}
+  .btn{background:var(--g2);color:#fff;border:0;border-radius:10px;padding:13px 26px;font:inherit;font-weight:800;font-size:1.05rem;cursor:pointer}
+  .btn.full{width:100%}.btn.out{background:#fff;color:var(--g);border:2px solid var(--g)}
+  .btn.gold{background:var(--gold)}.btn:disabled{opacity:.4;cursor:not-allowed}
+  ul.rules{line-height:2.1}
+  .bar{position:sticky;top:0;z-index:5;background:#fff;box-shadow:0 2px 10px #0002;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .timer{font-weight:800;font-size:1.3rem;color:var(--g);direction:ltr;background:#eef7f1;padding:4px 14px;border-radius:8px}
+  .timer.warn{color:var(--red);background:#fbeaec;animation:p 1s infinite}@keyframes p{50%{opacity:.45}}
+  .prog{height:6px;background:#e7e2d3}.prog i{display:block;height:100%;background:var(--gold);width:0;transition:.3s}
+  .qhead{display:flex;justify-content:space-between;align-items:center;color:var(--gray);font-weight:700;margin-bottom:14px}
+  .flag{background:none;border:2px solid #ddd;border-radius:8px;padding:5px 12px;cursor:pointer;font:inherit;color:var(--gray)}
+  .flag.on{border-color:var(--gold);color:#8a6d00;background:#fff8e1}
+  .txt{font-family:'Amiri',serif;font-size:1.55rem;line-height:1.9;min-height:110px}
+  .opts{display:grid;gap:12px;margin-top:18px}
+  .opt{border:2px solid #ddd;border-radius:12px;padding:15px 18px;cursor:pointer;font-weight:700;font-size:1.15rem;display:flex;align-items:center;gap:12px;transition:.15s}
+  .opt:hover{border-color:var(--g2)}
+  .opt .dot{width:22px;height:22px;border-radius:50%;border:2px solid #bbb}
+  .opt.sel{border-color:var(--g);background:#eef7f1}.opt.sel .dot{border:7px solid var(--g)}
+  .nav{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:8px}
+  .grid button{height:44px;border-radius:10px;border:2px solid #ddd;background:#fff;font:inherit;font-weight:800;cursor:pointer;position:relative}
+  .grid button.ans{background:var(--g2);border-color:var(--g2);color:#fff}
+  .grid button.cur{outline:3px solid var(--gold);outline-offset:1px}
+  .grid button.fl::after{content:'⚑';position:absolute;top:-9px;left:-5px;color:var(--gold);font-size:.95rem}
+  .legend{display:flex;gap:16px;font-size:.85rem;color:var(--gray);margin-top:10px;flex-wrap:wrap}
+  .hidden{display:none!important}
+  .score{text-align:center}
+  .ring{width:170px;height:170px;border-radius:50%;margin:10px auto;display:grid;place-items:center}
+  .ring div{width:136px;height:136px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:2.2rem;font-weight:800;color:var(--g)}
+  .stats{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-top:8px}
+  .stats b{display:block;font-size:1.4rem}
+  .info{color:var(--gray);line-height:1.8}
+  .rev{border-right:6px solid var(--g2)}.rev.bad{border-right-color:var(--red)}
+  .rev .t{font-family:'Amiri',serif;font-size:1.3rem;line-height:1.8;margin:6px 0 12px}
+  .rev .row{display:flex;gap:10px;flex-wrap:wrap}
+  .tag{padding:5px 12px;border-radius:8px;font-weight:700;font-size:.95rem;background:#f1f1f1}
+  .tag.ok{background:#e3f4ea;color:var(--g)}.tag.no{background:#fbeaec;color:var(--red)}
+  .badge{font-weight:800}.badge.ok{color:var(--g2)}.badge.no{color:var(--red)}
+  .msg{text-align:center;padding:34px;font-size:1.2rem}
+  .err{color:var(--red);font-size:.9rem;margin-top:4px}
 </style>
 </head>
 <body>
 <header><h1>الاختبار النصفي</h1><p>دورة شرح أصول متن الشاطبية</p></header>
 
-<!-- شاشة البداية -->
+<!-- البداية -->
 <div class="wrap" id="start">
   <div class="card">
-    <h2>تعليمات الاختبار</h2>
+    <h2 style="margin-top:0">تعليمات الاختبار</h2>
     <ul class="rules">
-      <li>عدد الأسئلة: <b>30</b> سؤالًا (صح أو خطأ) – لكل سؤال درجة واحدة.</li>
-      <li>مدة الاختبار: <b>45 دقيقة</b>، ويُسلَّم تلقائيًا عند انتهاء الوقت.</li>
+      <li>عدد الأسئلة: <b>15</b> سؤالًا (صح أو خطأ) تُختار عشوائيًا – لكل سؤال درجة.</li>
+      <li>مدة الاختبار: <b>45 دقيقة</b> ويُسلَّم تلقائيًا عند انتهاء الوقت.</li>
+      <li>يمكنك التنقل بين الأسئلة ووضع علامة ⚑ للمراجعة قبل التسليم.</li>
       <li>يُسمح بمحاولة واحدة فقط.</li>
     </ul>
-    <label><b>الاسم الثلاثي:</b></label>
-    <input type="text" id="name" placeholder="اكتب اسمك هنا">
-    <button class="btn" id="go">ابدأ الاختبار</button>
+  </div>
+  <div class="card">
+    <h2 style="margin-top:0">بيانات الطالب</h2>
+    <div class="field"><label>الاسم الثلاثي</label><input class="in" id="name"></div>
+    <div class="field"><label>رقم الجوال</label><input class="in" id="phone" type="tel" dir="ltr" placeholder="05xxxxxxxx"></div>
+    <div class="field"><label>البريد الإلكتروني</label><input class="in" id="email" type="email" dir="ltr" placeholder="name@example.com"></div>
+    <div class="err" id="ferr"></div>
+    <button class="btn full" id="go" style="margin-top:10px">ابدأ الاختبار</button>
   </div>
 </div>
 
-<!-- شاشة الأسئلة -->
+<!-- الاختبار -->
 <div id="exam" class="hidden">
-  <div class="bar"><span id="who"></span><div class="prog"><i id="pg"></i></div><span class="timer" id="timer">45:00</span></div>
-  <div class="wrap"><div id="qs"></div>
-    <button class="btn" id="submit">تسليم الاختبار</button></div>
+  <div class="bar"><b id="who"></b><span class="timer" id="timer">45:00</span></div>
+  <div class="prog"><i id="pg"></i></div>
+  <div class="wrap">
+    <div class="card" id="qcard">
+      <div class="qhead"><span id="qno"></span><button class="flag" id="flag">⚑ للمراجعة</button></div>
+      <div class="txt" id="qtxt"></div>
+      <div class="opts">
+        <div class="opt" data-v="true"><span class="dot"></span>✔ صح</div>
+        <div class="opt" data-v="false"><span class="dot"></span>✘ خطأ</div>
+      </div>
+      <div class="nav">
+        <button class="btn out" id="prev">→ السابق</button>
+        <button class="btn" id="next">التالي ←</button>
+      </div>
+    </div>
+    <div class="card">
+      <b>خريطة الأسئلة</b>
+      <div class="grid" id="grid" style="margin-top:12px"></div>
+      <div class="legend"><span>🟩 تمت الإجابة</span><span>⬜ لم يُجب</span><span>⚑ للمراجعة</span></div>
+      <button class="btn gold full" id="submit" style="margin-top:16px">إنهاء وتسليم الاختبار</button>
+    </div>
+  </div>
 </div>
 
-<!-- شاشة النتيجة -->
 <div class="wrap hidden" id="result"></div>
 
 <script>
-// ⚠️ ضع هنا رابط الـ Web App بعد نشر Code.gs
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4zn3ti2KTDBAUhl-Yv8ws_atLvNWxoeW5pVXERnJMKymOG17hABKACoTggprQOnw0fQ/exec";
-const DURATION = 45 * 60;
+// ⚠️ ضع رابط الـ Web App هنا
+const SCRIPT_URL = "https://script.google.com/macros/library/d/18vgdsa5F4jWLgF4-YcJzmwjU_EqJ3G5hFbbgdnWu9XnBPXj027G5mYLY/2";
+const DURATION = 45 * 60, COUNT = 15;
 
-const Q = [
+const BANK = [
 "شروط القراءة الصحيحة: تواتر السند، وموافقة العربية، وموافقة رسم المصحف.",
 "الراوي الأول لحمزة الكسائي.",
 "«رست» رمز لابن عامر وراوييه.",
@@ -106,78 +149,107 @@ const Q = [
 ];
 
 const $ = id => document.getElementById(id);
-let name, startTime, tick, sent = false;
+const LS = 'shatibiya_exam_v2';
+let S; // state: {name,phone,email,ids,answers,flags,cur,start,done}
 
-if (localStorage.getItem('shatibiya_done')) showResult(JSON.parse(localStorage.getItem('shatibiya_done')));
+function save(){ localStorage.setItem(LS, JSON.stringify(S)); }
+const tf = v => v === null || v === undefined ? '— لم يجب' : v ? 'صح' : 'خطأ';
 
-$('qs').innerHTML = Q.map((t, i) => `
-  <div class="card"><div class="q"><div class="num">${i+1}</div><div class="txt">${t}</div></div>
-  <div class="opts">
-    <label><input type="radio" name="q${i}" value="true"> ✔ صح</label>
-    <label><input type="radio" name="q${i}" value="false"> ✘ خطأ</label>
-  </div></div>`).join('');
-
-$('qs').addEventListener('change', () => {
-  const n = document.querySelectorAll('#qs input:checked').length;
-  $('pg').style.width = (n / Q.length * 100) + '%';
-});
+// استئناف عند تحديث الصفحة
+const saved = localStorage.getItem(LS);
+if (saved) { S = JSON.parse(saved); S.result ? showResult() : startExam(); }
 
 $('go').onclick = () => {
-  name = $('name').value.trim();
-  if (name.split(/\s+/).length < 2) return alert('من فضلك اكتب اسمك كاملًا');
-  $('start').classList.add('hidden'); $('exam').classList.remove('hidden');
-  $('who').textContent = name;
-  startTime = Date.now();
-  tick = setInterval(updateTimer, 1000); updateTimer();
-  window.onbeforeunload = () => 'سيضيع الاختبار إن خرجت';
+  const name = $('name').value.trim(), phone = $('phone').value.trim(), email = $('email').value.trim();
+  let e = '';
+  if (name.split(/\s+/).length < 3) e = 'اكتب الاسم ثلاثيًا';
+  else if (!/^\+?\d{8,15}$/.test(phone.replace(/[\s-]/g, ''))) e = 'رقم الجوال غير صحيح';
+  else if (!/^\S+@\S+\.\S+$/.test(email)) e = 'البريد الإلكتروني غير صحيح';
+  if (e) return $('ferr').textContent = e;
+  const ids = [...BANK.keys()].sort(() => Math.random() - .5).slice(0, COUNT);
+  S = { name, phone, email, ids, answers: Array(COUNT).fill(null), flags: Array(COUNT).fill(false), cur: 0, start: Date.now() };
+  save(); startExam();
 };
 
-function updateTimer() {
-  const left = DURATION - Math.floor((Date.now() - startTime) / 1000);
-  if (left <= 0) { submit(true); return; }
-  const m = String(Math.floor(left / 60)).padStart(2, '0'), s = String(left % 60).padStart(2, '0');
-  $('timer').textContent = m + ':' + s;
+let tick;
+function startExam(){
+  $('start').classList.add('hidden'); $('exam').classList.remove('hidden');
+  $('who').textContent = S.name;
+  tick = setInterval(updateTimer, 1000); updateTimer(); render();
+}
+
+function updateTimer(){
+  const left = DURATION - Math.floor((Date.now() - S.start) / 1000);
+  if (left <= 0) return submit(true);
+  $('timer').textContent = String(Math.floor(left/60)).padStart(2,'0') + ':' + String(left%60).padStart(2,'0');
   $('timer').classList.toggle('warn', left <= 300);
 }
 
+function render(){
+  const i = S.cur;
+  $('qno').textContent = `السؤال ${i+1} من ${COUNT}`;
+  $('qtxt').textContent = BANK[S.ids[i]];
+  document.querySelectorAll('.opt').forEach(o => o.classList.toggle('sel', String(S.answers[i]) === o.dataset.v));
+  $('flag').classList.toggle('on', S.flags[i]);
+  $('prev').disabled = i === 0;
+  $('next').textContent = i === COUNT-1 ? 'مراجعة وتسليم' : 'التالي ←';
+  $('pg').style.width = (S.answers.filter(a => a !== null).length / COUNT * 100) + '%';
+  $('grid').innerHTML = S.ids.map((_, k) =>
+    `<button class="${S.answers[k]!==null?'ans':''} ${k===i?'cur':''} ${S.flags[k]?'fl':''}" data-k="${k}">${k+1}</button>`).join('');
+}
+
+document.querySelectorAll('.opt').forEach(o => o.onclick = () => { S.answers[S.cur] = o.dataset.v === 'true'; save(); render(); });
+$('flag').onclick = () => { S.flags[S.cur] = !S.flags[S.cur]; save(); render(); };
+$('prev').onclick = () => { S.cur--; save(); render(); };
+$('next').onclick = () => { if (S.cur < COUNT-1) { S.cur++; save(); render(); } else $('submit').click(); };
+$('grid').onclick = e => { if (e.target.dataset.k) { S.cur = +e.target.dataset.k; save(); render(); } };
+
 $('submit').onclick = () => {
-  const n = document.querySelectorAll('#qs input:checked').length;
-  if (n < Q.length && !confirm(`لم تُجب على ${Q.length - n} سؤال. هل تريد التسليم؟`)) return;
-  submit(false);
+  const un = S.answers.filter(a => a === null).length, fl = S.flags.filter(Boolean).length;
+  let m = 'هل أنت متأكد من تسليم الاختبار؟ لا يمكن التعديل بعد التسليم.';
+  if (un) m = `لم تُجب على ${un} سؤال.\n` + m;
+  if (fl) m = `لديك ${fl} سؤال معلَّم للمراجعة.\n` + m;
+  if (confirm(m)) submit(false);
 };
 
-async function submit(timeout) {
-  if (sent) return; sent = true;
-  clearInterval(tick); window.onbeforeunload = null;
-  const answers = Q.map((_, i) => {
-    const c = document.querySelector(`input[name=q${i}]:checked`);
-    return c ? c.value === 'true' : null;
-  });
+let sending = false;
+async function submit(timeout){
+  if (sending) return; sending = true; clearInterval(tick);
   $('exam').classList.add('hidden'); $('result').classList.remove('hidden');
   $('result').innerHTML = '<div class="card msg">⏳ جارٍ تصحيح الاختبار...</div>';
   try {
-    const r = await fetch(SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ name, answers, timeout, minutes: ((Date.now() - startTime) / 60000).toFixed(1) }) });
-    const data = await r.json();
-    const out = { name, score: data.score, results: data.results, answers };
-    localStorage.setItem('shatibiya_done', JSON.stringify(out));
-    showResult(out);
+    const r = await fetch(SCRIPT_URL, { method:'POST', headers:{'Content-Type':'text/plain'},
+      body: JSON.stringify({ name:S.name, phone:S.phone, email:S.email, ids:S.ids, answers:S.answers, timeout,
+        minutes: Math.min(45, (Date.now()-S.start)/60000).toFixed(1) }) });
+    S.result = await r.json(); save(); showResult();
   } catch (e) {
-    $('result').innerHTML = '<div class="card msg">⚠️ تعذّر إرسال الإجابات. تأكد من الاتصال بالإنترنت ثم أعد المحاولة.<br><button class="btn" id="retry">إعادة الإرسال</button></div>';
-    $('retry').onclick = () => { sent = false; $('exam').classList.remove('hidden'); $('result').classList.add('hidden'); submit(timeout); };
+    sending = false;
+    $('result').innerHTML = '<div class="card msg">⚠️ تعذّر إرسال الإجابات. تحقق من الإنترنت.<br><br><button class="btn" id="retry">إعادة الإرسال</button></div>';
+    $('retry').onclick = () => submit(timeout);
   }
 }
 
-function showResult(d) {
+function showResult(){
   $('start').classList.add('hidden'); $('exam').classList.add('hidden'); $('result').classList.remove('hidden');
-  const pct = Math.round(d.score / 30 * 100);
+  const R = S.result, pct = Math.round(R.score / COUNT * 100);
+  const wrong = R.results.filter(x => !x).length, skip = S.answers.filter(a => a === null).length;
+  const col = pct >= 50 ? 'var(--g2)' : 'var(--red)';
   $('result').innerHTML = `
-    <div class="card score"><h2>${d.name}</h2><div class="big">${d.score} / 30</div><p>النسبة: ${pct}%</p></div>
-    <div class="card"><table><tr><th>السؤال</th><th>إجابتك</th><th>النتيجة</th></tr>
-    ${d.results.map((ok, i) => `<tr><td>${i+1}</td>
-      <td>${d.answers[i] === null ? '—' : d.answers[i] ? 'صح' : 'خطأ'}</td>
-      <td class="${ok ? 'ok' : 'no'}">${ok ? '✔ صحيحة' : '✘ خاطئة'}</td></tr>`).join('')}
-    </table></div>`;
+    <div class="card score">
+      <h2 style="margin:0">نتيجة الاختبار</h2>
+      <div class="ring" style="background:conic-gradient(${col} ${pct}%,#eee 0)"><div>${R.score}/${COUNT}</div></div>
+      <h3 style="color:${col};margin:4px 0">${pct}% — ${pct>=90?'ممتاز':pct>=75?'جيد جدًا':pct>=65?'جيد':pct>=50?'مقبول':'لم يجتز'}</h3>
+      <div class="stats"><span><b style="color:var(--g2)">${R.score}</b>صحيحة</span><span><b style="color:var(--red)">${wrong-skip}</b>خاطئة</span><span><b>${skip}</b>بدون إجابة</span></div>
+      <hr style="border:0;border-top:1px solid #eee;margin:18px 0">
+      <div class="info"><b>${S.name}</b><br><span dir="ltr">${S.phone}</span> · ${S.email}</div>
+    </div>
+    <h3>مراجعة الإجابات</h3>
+    ${S.ids.map((id, i) => { const ok = R.results[i]; return `
+      <div class="card rev ${ok?'':'bad'}">
+        <div style="display:flex;justify-content:space-between"><b>السؤال ${i+1}</b><span class="badge ${ok?'ok':'no'}">${ok?'✔ إجابة صحيحة':'✘ إجابة خاطئة'}</span></div>
+        <div class="t">${BANK[id]}</div>
+        <div class="row"><span class="tag ${ok?'ok':'no'}">إجابتك: ${tf(S.answers[i])}</span><span class="tag ok">الإجابة النموذجية: ${tf(R.correct[i])}</span></div>
+      </div>`; }).join('')}`;
 }
 </script>
 </body>
